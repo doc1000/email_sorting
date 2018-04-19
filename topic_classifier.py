@@ -17,6 +17,15 @@ from nltk.stem.wordnet import WordNetLemmatizer
 from sklearn.linear_model import SGDClassifier
 #from sklearn.linear_model import LogisticRegression
 import pickle
+#import models.mylemmatizer
+#from models.mylemmatizer import LemmedCountVectorizer
+
+
+class LemmedCountVectorizer(CountVectorizer):
+    def build_analyzer(self):
+        lemma = WordNetLemmatizer()
+        analyzer = super(LemmedCountVectorizer, self).build_analyzer()
+        return lambda doc: ([lemma.lemmatize(w) for w in analyzer(doc)])
 
 
 class InquireBoulderData(object):
@@ -28,6 +37,7 @@ class InquireBoulderData(object):
         self.categories_reversed = {}
         self.X = None
         self.y = None
+
         #self.data_filename= data_filename
         #self.topic_filename = topic_filename
 
@@ -68,18 +78,13 @@ class EmailData(object):
         return self.X
 
 
-class LemmedCountVectorizer(CountVectorizer):
-    def build_analyzer(self):
-        lemma = WordNetLemmatizer()
-        analyzer = super(LemmedCountVectorizer, self).build_analyzer()
-        return lambda doc: ([lemma.lemmatize(w) for w in analyzer(doc)])
-
 
 
 class TopicClassifier(object):
     def __init__(self):
         self._model=None
         self.categories = {}
+        from topic_classifier import LemmedCountVectorizer
 
     def fit(self,X,y):
         pipeline = Pipeline([
@@ -115,6 +120,9 @@ class TopicClassifier(object):
         if filename == None:
             filename = 'data/predicted_category_log.csv'
         mail_df.to_csv(filename)
+
+
+
 
 
 if __name__ == '__main__':
