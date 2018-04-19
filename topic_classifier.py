@@ -18,10 +18,13 @@ from sklearn.linear_model import SGDClassifier
 #from sklearn.linear_model import LogisticRegression
 import pickle
 #import models.mylemmatizer
-#from models.mylemmatizer import LemmedCountVectorizer
+# from models.mylemmatizer import LemmedCountVectorizer
 
 
 class LemmedCountVectorizer(CountVectorizer):
+    def __init__(self):
+        return self
+
     def build_analyzer(self):
         lemma = WordNetLemmatizer()
         analyzer = super(LemmedCountVectorizer, self).build_analyzer()
@@ -84,7 +87,7 @@ class TopicClassifier(object):
     def __init__(self):
         self._model=None
         self.categories = {}
-        from topic_classifier import LemmedCountVectorizer
+        #from topic_classifier import LemmedCountVectorizer
 
     def fit(self,X,y):
         pipeline = Pipeline([
@@ -104,12 +107,13 @@ class TopicClassifier(object):
     def save_model_to_pickle(self,filename=None):
         if filename == None:
             filename = 'models/pipeline_to_SGD_logloss.p'
-        pickle.dump(self._model,open(filename,'wb'))
+        pickle.dump(self._modelopen(filename,'wb'))
 
     def load_model_from_pickle(self,filename=None):
         if filename == None:
             filename = 'models/pipeline_to_SGD_logloss.p'
         self._model = pickle.load(open(filename,'rb'))
+        self.load_categories_from_pickle()
 
     def load_categories_from_pickle(self,filename=None):
         if filename == None:
