@@ -1,6 +1,6 @@
 |--|--|
 |--|--|
-|![city of boulder logo](images/city-of-boulder-small.png)|![goofy](https://media.giphy.com/media/Cb8uPBOkxpJDi/giphy.gif)|
+|![city of boulder logo](images/city-of-boulder.png)|![goofy](https://media.giphy.com/media/Cb8uPBOkxpJDi/giphy.gif)|
 
 
 ### Sorting Emails for the City of Boulder
