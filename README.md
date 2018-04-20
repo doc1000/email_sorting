@@ -31,8 +31,6 @@ I have predictions that eyeball reasonably well, but will require more time dete
 Originally looking at only the unclassified emails, I framed this as a clustering problem.  As such after instituting a word processing pipeline culminating in a tf-idf matrix for the document corpus, I applied k-means clustering with both euclidean and cosine similarity distance metrics, as well as latent Dirchelet analysis.  I have not yet pursued metrics (silhouette, entropy) on this process yet, but the eyeball test indicated roughly 8 clusters based on k-means cosine similarity represented logical word groupings to represent the underlying emails.  I would like to investigate coherence metrics to lend further informability to the clusters.
 
 ![pca clustering](images/pca_3d_titled.png)
-#### KMeans Word Groupings
-![kmeans word groups](images/Kmeans_3_tf-idf.png)
 
 #### LDA Word Groupings:
 
