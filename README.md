@@ -3,7 +3,7 @@
 |![city of boulder logo](images/city-of-boulder.png)|![goofy](https://media.giphy.com/media/Cb8uPBOkxpJDi/giphy.gif)|
 
 
-### Sorting Emails for the City of Boulder
+# Sorting Boulder City Council Emails
 The City of Boulder uses a single contact point for emails addressed to members of the city council for public matters.  This makes it easier for citizens and stakeholders to reach out to city government without an arduous search for particular contacts.  This could be repeated across other city contact points and, indeed, generalized across many agencies, both public and private.
 
 With the ease of use of single contact, comes the complexity of determining who should see an email and who best should respond in a timely manner.  In addition, there needs to be tracking of correspondence and verification that standards are maintained.
