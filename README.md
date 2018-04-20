@@ -46,33 +46,4 @@ Originally looking at only the unclassified emails, I framed this as a clusterin
 ### Next Steps
 I would like to be able to deliver the expected target person for the email to be forwarded to, which I think will be complementary to the topic classification.  I would also like to deliver indicative word clusterings to add a topic synopsis.  Finally, I would like to address some of the flow and control issues that were raised in my conversations with the point people on the project.
 
-
-
-
-
-
-=======
-#### LDA Word Groupings:
-
-0 manager law person received case department come citizen
-
-1 utility cost energy 2017 electric solar plant xcel
-
-2 event update list image receive nthis net 30
-
-3 ordinance court provision law case light town code
-
-4 neighborhood lot space building development impact land house
-
-5 pond detention flower agricultural agriculture destroy goat dairy
-
-6 affordable consider rent alpine morzel reach list flood
-
-7 homeless letter attached shelter maybe tax morning went
-
-### Next Steps
-
-I would like to be able to deliver the expected target person for the email to be forwarded to, which I think will be complementary to the topic classification.  I would also like to deliver indicative word clusterings to add a topic synopsis.  Finally, I would like to address some of the flow and control issues that were raised in my conversations with the point people on the project, Nicolia and Kim.
->>>>>>> 5da33c8eb3abbcf3a2aba1ccf8fbdff111ceab79
-
 ![](https://media.giphy.com/media/Cb8uPBOkxpJDi/giphy.gif)
