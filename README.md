@@ -1,6 +1,4 @@
-|--|--|
-|--|--|
-|![city of boulder logo](images/city-of-boulder.png)|![goofy](https://media.giphy.com/media/Cb8uPBOkxpJDi/giphy.gif)|
+![city of boulder logo](images/city-of-boulder.png)
 
 
 # Sorting Boulder City Council Emails
