@@ -31,7 +31,7 @@ Originally looking at only the unclassified emails, I framed this as a clusterin
 ![pca clustering](images/pca_3d_titled.png)
 ####KMeans Word Groupings
 ![kmeans word groups](images/Kmeans_3_tf-idf.png)
-####LDA Word Groupings:
+#### LDA Word Groupings:
 0 manager law person received case department come citizen
 1 utility cost energy 2017 electric solar plant xcel
 2 event update list image receive nthis net 30
