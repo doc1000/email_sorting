@@ -1,5 +1,5 @@
-|||
-|||
+|--|--|
+|--|--|
 |![city of boulder logo](images/city-of-boulder-small.png)|![goofy](https://media.giphy.com/media/Cb8uPBOkxpJDi/giphy.gif)|
 
 
