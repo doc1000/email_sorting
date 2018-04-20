@@ -9,13 +9,15 @@ A workable classification model model based on sender, subject and body could co
 
 In the github [https://github.com/doc1000/email_sorting] you will find a script which will classify input emails or messages regarding city topics (topic_classifier.py)
 
+Thanks to Nicolia Eldred-Skemp and Kim McCleskey from the city of Boulder
+
 ### Data
 Initially, I have 1000 unclassified emails that were routed to the city council and 10,000 messages routed to Inquire Boulder, classified by the department they were routed to.  In each data set, there is also information regarding who corresponded on the topic.
 ![inquire boulder histogram](images/inquire_bouilder_topic_histogram.png)
 
 ### Data Pipeline
 We have a mixed dataset with significant, although not perfect, topic overlap.  I decided to train a classification model on the Inquire Boulder data, and then classify the emails using that model.  I established a pipeline to clean, case adjust, de-punctuate, tokanize and lemmatize the messages, and created an tf-idf matrix out of the corpus.  
-![process flowchart](images/process_flowchart2.png)
+![process flowchart](images/process_flowchart_2.png)
 
 ### Modeling
 I then gridsearched models, targeting accuracy, across multiple classifiers, including Logistic Regression, Support Vector Machines, Random Forest and Gradient Boosted Forest before settling on a Stochastic Gradient Descent model applied over logistic regression (so that I can extract class probabilities), with modest regularization using a combination of squared and absolute normed distance loss function.  The rejected models yielded test accuracy scores in the 0.75 range, while the accepted SGD model scored in the 0.82 range.  The input data is somewhat imbalanced toward a single class (Public Works), so I applied balance weightings to the model, which actually improved accuracy to 0.85 (over 18 classifications) on both the train and test data.
@@ -32,16 +34,21 @@ Originally looking at only the unclassified emails, I framed this as a clusterin
 ####KMeans Word Groupings
 ![kmeans word groups](images/Kmeans_3_tf-idf.png)
 ####LDA Word Groupings:
-0 manager law person received case department come citizen
-1 utility cost energy 2017 electric solar plant xcel
-2 event update list image receive nthis net 30
-3 ordinance court provision law case light town code
-4 neighborhood lot space building development impact land house
-5 pond detention flower agricultural agriculture destroy goat dairy
-6 affordable consider rent alpine morzel reach list flood
-7 homeless letter attached shelter maybe tax morning went
+
+|--|--|
+|--|--|
+|![a](images/word_cloud_flood.png) |![b](images/word_cloud_utility.png) |
+|![x](images/word_cloud_weapon.png) |![y](images/word_cloud_rtd.png) |
+
+
 
 ### Next Steps
-I would like to be able to deliver the expected target person for the email to be forwarded to, which I think will be complementary to the topic classification.  I would also like to deliver indicative word clusterings to add a topic synopsis.  Finally, I would like to address some of the flow and control issues that were raised in my conversations with the point people on the project, Nicolia and Kim.
+I would like to be able to deliver the expected target person for the email to be forwarded to, which I think will be complementary to the topic classification.  I would also like to deliver indicative word clusterings to add a topic synopsis.  Finally, I would like to address some of the flow and control issues that were raised in my conversations with the point people on the project.
+
+
+
+
+
+
 
 ![](https://media.giphy.com/media/Cb8uPBOkxpJDi/giphy.gif)
