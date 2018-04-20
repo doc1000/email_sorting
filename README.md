@@ -44,4 +44,3 @@ Originally looking at only the unclassified emails, I framed this as a clusterin
 ### Next Steps
 I would like to be able to deliver the expected target person for the email to be forwarded to, which I think will be complementary to the topic classification.  I would also like to deliver indicative word clusterings to add a topic synopsis.  Finally, I would like to address some of the flow and control issues that were raised in my conversations with the point people on the project.
 
-![](https://media.giphy.com/media/Cb8uPBOkxpJDi/giphy.gif)
