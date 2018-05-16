@@ -91,6 +91,9 @@ class TopicClassifier(object):
         self._model=None
         self.categories = {}
         self.X = None
+        self._vect = None
+        self._tfidf_matrix = None
+        self.vocabulary_ = None
         #from topic_classifier import LemmedCountVectorizer
 
     def fit(self,X,y):
@@ -102,6 +105,9 @@ class TopicClassifier(object):
         ])
         pipeline.fit(X,y)
         self._model=pipeline
+        self.vocabulary_ = self._model.named_steps['vect'].vocabulary_
+        self._vect = model._model.named_steps['vect'].transform(X)
+        self._tfidf_matrix = model._model.named_steps['tfidf'].transform(self._vect)
         return self
 
     def predict(self,X,return_type=1):
@@ -149,14 +155,29 @@ class TopicClassifier(object):
 
     def top_words(self,doc):
         doc = [doc]
-        vect_mod = self._model.named_steps['vect']
+        #vect_mod = self._model.named_steps['vect']
         vect = self._model.named_steps['vect'].transform(doc)
-        rev_d = {v:k for k,v in vect_mod.vocabulary_.items()}
+        rev_d = {v:k for k,v in self.vocabulary_.items()}
         index_d = 0
         one_doc = vect[index_d].toarray()
         #one_doc = tf_matrix[index_d].toarray()
         top_words = [rev_d[x] for x in np.argsort(one_doc*-1)[0][:20] if len(rev_d[x])>4 and one_doc[0,x]>0]
         return top_words
+
+    def similar_emails(self,doc):
+        from sklearn.metrics.pairwise import cosine_similarity
+        doc = [doc]
+        vect = model._model.named_steps['vect'].transform(doc)
+        tf_matrix = model._model.named_steps['tfidf'].transform(vect)
+        #vect_X = model._model.named_steps['vect'].transform(model.X)
+        #tf_matrix_X = model._model.named_steps['tfidf'].transform(vect_X)
+
+        #index_d = 0
+        cossim = cosine_similarity(tf_matrix[:],self._tfidf_matrix[:])
+        #cossim[0][index_d] = 0
+        comp_docs = [(cossim.reshape(-1,1)[i][0],model.X[i]) for i in np.argsort(cossim*-1)[0][:5]]
+        print(comp_docs[0])
+
 
 def text_cleaning(docs):
     import re
