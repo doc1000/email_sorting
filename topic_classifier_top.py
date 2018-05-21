@@ -118,7 +118,9 @@ class TopicClassifier(object):
         X = self.text_cleaning(X)
         #self.X = X
         y_pred = self._model.predict(X)
-        y_cats = np.vectorize(self.categories.get)(y_pred)
+        y_pred_proba = self._model.predict_proba(X)
+        y_ix = np.argsort(y_pred_proba*-1)[0][:3]
+        y_cats = np.vectorize(self.categories.get)(y_ix)
         # if return_type == 1:
         #     y_return = y_cats
         # else:
@@ -131,12 +133,20 @@ class TopicClassifier(object):
         if filename == None:
             filename = 'models/pipeline_to_SGD_logloss.p'
         pickle.dump(self._model,open(filename,'wb'))
+        filename = filename + '_X'
+        pickle.dump(self.X,open(filename,'wb'))
+
 
     def load_model_from_pickle(self,filename=None):
         if filename == None:
             filename = 'models/pipeline_to_SGD_logloss.p'
         self._model = pickle.load(open(filename,'rb'))
+        filename = filename + '_X'
+        self.X = pickle.load(open(filename,'rb'))
         self.load_categories_from_pickle()
+        self.vocabulary_ = self._model.named_steps['vect'].vocabulary_
+        self._vect = model._model.named_steps['vect'].transform(self.X)
+        self._tfidf_matrix = model._model.named_steps['tfidf'].transform(self._vect)
 
     def load_categories_from_pickle(self,filename=None):
         if filename == None:
@@ -179,9 +189,9 @@ class TopicClassifier(object):
         #index_d = 0
         cossim = cosine_similarity(tf_matrix[:],self._tfidf_matrix[:])
         #cossim[0][index_d] = 0
-        comp_docs = [(cossim.reshape(-1,1)[i][0],model.X[i]) for i in np.argsort(cossim*-1)[0][:5]]
+        comp_docs = [(cossim.reshape(-1,1)[i][0],model.X[i][:100]) for i in np.argsort(cossim*-1)[0][:5]]
         #print(comp_docs[0])
-        return comp_docs[0]
+        return comp_docs[:]
 
 def text_cleaning(docs):
     import re
@@ -209,17 +219,22 @@ def load_up_model():
 
 if __name__ == '__main__':
     X_train,y_train = InquireBoulderData().fit()
-    model = TopicClassifier()
-    model.fit(X_train,y_train)
-    model.save_model_to_pickle('models/pipeline_to_SGD_logloss_05132018.p')
-    #del model
     #model = TopicClassifier()
-    #model.load_model_from_pickle('models/pipeline_to_SGD_logloss_05132018.p')
+    #model.fit(X_train,y_train)
+    #model.save_model_to_pickle('models/pipeline_to_SGD_logloss_05202018.p')
+    #del model
+    model = TopicClassifier()
+    model.load_model_from_pickle('models/pipeline_to_SGD_logloss_05202018.p')
+
     #model = load_up_model()
-    doc = 'The streets in this town are paved with potholes.  we need better snow removal.'
-    print(model.predict(doc))
-    print(model.top_words(doc))
-    print(model.similar_emails(doc))
+    doc = "deer deer deer shannahan <html>This trail is great.  We need more trails!  The inhabitants of the city are healthier and better off for trails we get to hike.  Let's make more open space!!</html>."
+    #doc = "whatever youre fucking thinking i disagree"
+    pred = model.predict(doc)
+    tw = model.top_words(doc)
+    sim = model.similar_emails(doc)
+    print(pred)
+    print(tw)
+    print(sim)
 
 
 #mail_df['predicted_category']=y_cats
